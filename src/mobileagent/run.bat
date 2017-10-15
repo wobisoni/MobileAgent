@@ -1,1 +1,0 @@
-start makeit.bat

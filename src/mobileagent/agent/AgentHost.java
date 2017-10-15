@@ -6,6 +6,7 @@ import mobileagent.bean.Agent;
 import com.ibm.aglet.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +15,8 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import mobileagent.library.Authenticate;
+import javax.swing.JOptionPane;
+import mobileagent.library.CreateFrame;
 
 public class AgentHost extends Aglet implements Serializable{
     transient ServerWindows serverWindow;
@@ -49,15 +51,23 @@ public class AgentHost extends Aglet implements Serializable{
             } 
         }else if(msg.sameKind("remote")){
             try{
-                    Socket sc = new Socket("localhost",4000);
-                    System.out.println("Connecting to the Slave");
-                    Authenticate frame1 = new Authenticate(sc);
-
-                    frame1.setSize(300,80);
-                    frame1.setLocation(500,300);
-                    frame1.setVisible(true);
+                String width = "";
+                String height = "";
+                AgletProxy remoteProxy = (AgletProxy)msg.getArg();
+                String ip = remoteProxy.getAddress();
+//                System.out.println(ip);
+                Socket socket = new Socket("localhost",4000);
+                System.out.println("Connecting to the Server");
+		DataInputStream	dis = new DataInputStream(socket.getInputStream());
+                String start = dis.readUTF();
+                System.out.println("start: "+start);
+                if(start.equals("start")){
+                    width = dis.readUTF();
+                    height = dis.readUTF();
+                }
+                CreateFrame abc= new CreateFrame(remoteProxy , socket, width, height);
             } catch (Exception ex){
-                    ex.printStackTrace();
+                ex.printStackTrace();
             }
         }else{
             return false;

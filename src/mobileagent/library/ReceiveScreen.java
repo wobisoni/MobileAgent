@@ -10,7 +10,7 @@ import java.io.ObjectInputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class ReceiveScreen extends Thread{
+class ReceiveScreen extends Thread{
 	private ObjectInputStream cObjectInputStream = null;
 	private JPanel cPanel = null;
 	private boolean continueLoop = true;
