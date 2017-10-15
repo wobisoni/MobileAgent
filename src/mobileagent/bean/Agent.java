@@ -1,4 +1,4 @@
-package mobileagent;
+package mobileagent.bean;
 
 import com.ibm.aglet.*;
 import java.io.Serializable;

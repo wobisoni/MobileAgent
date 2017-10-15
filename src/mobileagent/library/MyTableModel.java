@@ -1,5 +1,7 @@
-package mobileagent;
+package mobileagent.library;
 
+import mobileagent.bean.Agent;
+import mobileagent.bean.Agent;
 import com.ibm.aglet.InvalidAgletException;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;

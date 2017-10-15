@@ -1,5 +1,6 @@
-package mobileagent;
+package mobileagent.agent;
 
+import mobileagent.bean.Agent;
 import com.ibm.aglet.*;
 import com.ibm.aglet.event.MobilityAdapter;
 import com.ibm.aglet.event.MobilityEvent;

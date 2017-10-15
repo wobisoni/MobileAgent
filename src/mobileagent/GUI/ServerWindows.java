@@ -1,5 +1,8 @@
-package mobileagent;
+package mobileagent.GUI;
 
+import mobileagent.agent.AgentHost;
+import mobileagent.library.MyTableModel;
+import mobileagent.bean.Agent;
 import com.ibm.aglet.AgletContext;
 import com.ibm.aglet.AgletID;
 import com.ibm.aglet.AgletProxy;
@@ -22,7 +25,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 public class ServerWindows extends javax.swing.JFrame {
-    transient AgentServer agentServer = null;
+    transient AgentHost agentServer = null;
     static ArrayList<Agent> arAgent;
     MyTableModel mListAgent;
     String ip = "";
@@ -31,7 +34,7 @@ public class ServerWindows extends javax.swing.JFrame {
         initComponents();
     }
 
-    ServerWindows(AgentServer aglet) {
+    public ServerWindows(AgentHost aglet) {
          arAgent = new ArrayList();
          mListAgent = new MyTableModel(arAgent);
          ip = getIP();
@@ -173,6 +176,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnMove.setBackground(new java.awt.Color(255, 255, 255));
         btnMove.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnMove.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\move.png")); // NOI18N
         btnMove.setText("Move");
         btnMove.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMove.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -188,6 +192,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
         btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnUpdate.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\update.png")); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -525,6 +530,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnNoti.setBackground(new java.awt.Color(255, 255, 255));
         btnNoti.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNoti.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\noti.png")); // NOI18N
         btnNoti.setText("Notification");
         btnNoti.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNoti.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -577,7 +583,7 @@ public class ServerWindows extends javax.swing.JFrame {
                     //Tạo thể hiện contex
                     AgletContext context = agentServer.getAgletContext();
                     //Tạo mới Aglet
-                    AgletProxy aProxy = (AgletProxy)context.createAglet(agentServer.getCodeBase(), "mobileagent.AgentSlave",agentServer.getProxy()) ;
+                    AgletProxy aProxy = (AgletProxy)context.createAglet(agentServer.getCodeBase(), "mobileagent.agent.AgentSlave",agentServer.getProxy()) ;
                     AgletID aID = aProxy.getAgletID();
                     System.out.println("Khoi tao aglet: "+aID);
                     //Lưu vào mảng
@@ -590,7 +596,24 @@ public class ServerWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        
+        try {
+            //Thông tin Aglet
+            String agentName = showInputDialog("Agent Name", "Agent");
+            if(agentName!=null){
+                    String create_time = getTime();
+                    //Tạo thể hiện contex
+                    AgletContext context = agentServer.getAgletContext();
+                    //Tạo mới Aglet
+                    AgletProxy aProxy = (AgletProxy)context.createAglet(agentServer.getCodeBase(), "mobileagent.agent.AgentRemote",agentServer.getProxy()) ;
+                    AgletID aID = aProxy.getAgletID();
+                    System.out.println("Khoi tao aglet: "+aID);
+                    //Lưu vào mảng
+                    Agent objAgent = new Agent(aID, aProxy, agentName, create_time, aProxy.isActive()?"Active":"Invalid", "", "", "", "", "");
+                    mListAgent.addRow(objAgent);
+            }
+        }catch (Exception ex) {
+            System.out.println("Loi khi tao Aglets");
+        }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnReDesktopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReDesktopActionPerformed
@@ -616,27 +639,27 @@ public class ServerWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChatActionPerformed
 
     private void btnSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemActionPerformed
-        int index = tbListAgent.getSelectedRow(); 
-        Agent agent = mListAgent.getObject(index);   
-        AgletProxy ap = agent.getaProxy();
-        String [] days = { "Shutdown", "Restart", "Logout"};   
-        String input =  JOptionPane.showInputDialog (this,  "Choose an action",  " System ",  JOptionPane.QUESTION_MESSAGE,  null,  days, "").toString();
-        try{
-            switch(input){
-                  case "Shutdown": 
-                           ap.sendMessage(new Message("shutdown"));
-                           System.out.println("tat may trong 30s");
-                      break;
-                  case "Restart": 
-                            ap.sendMessage(new Message("restart"));
-                      break;
-                  case "Logout": 
-                             ap.sendMessage(new Message("Logout"));   
-                      break;
-                  default:
-                      break;
-              }
-        }catch(Exception ex){}
+//        int index = tbListAgent.getSelectedRow(); 
+//        Agent agent = mListAgent.getObject(index);   
+//        AgletProxy ap = agent.getaProxy();
+//        String [] days = { "Shutdown", "Restart", "Logout"};   
+//        String input =  JOptionPane.showInputDialog (this,  "Choose an action",  " System ",  JOptionPane.QUESTION_MESSAGE,  null,  days, "").toString();
+//        try{
+//            switch(input){
+//                  case "Shutdown": 
+//                           ap.sendMessage(new Message("shutdown"));
+//                           System.out.println("tat may trong 30s");
+//                      break;
+//                  case "Restart": 
+//                            ap.sendMessage(new Message("restart"));
+//                      break;
+//                  case "Logout": 
+//                             ap.sendMessage(new Message("Logout"));   
+//                      break;
+//                  default:
+//                      break;
+//              }
+//        }catch(Exception ex){}
     }//GEN-LAST:event_btnSystemActionPerformed
 
     private void btnMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveActionPerformed
@@ -752,7 +775,7 @@ public class ServerWindows extends javax.swing.JFrame {
             InetAddress myIP = getLocalHost();
             mIP = myIP.getHostAddress();
          } catch (UnknownHostException ex) {
-            getLogger(AgentServer.class.getName()).log(SEVERE, null, ex);
+            getLogger(AgentHost.class.getName()).log(SEVERE, null, ex);
          }
          return mIP;
     }

@@ -1,4 +1,4 @@
-package mobileagent;
+package mobileagent.library;
 
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
