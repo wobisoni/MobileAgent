@@ -1,26 +1,42 @@
 package mobileagent;
 
 import com.ibm.aglet.*;
+import com.ibm.aglet.event.MobilityAdapter;
+import com.ibm.aglet.event.MobilityEvent;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.imageio.ImageIO;
 
 public class AgentSlave extends Aglet implements Serializable{
+    String agentName = "";
+    String timeCreate = "";
     AgletProxy ap = null;
-    transient BufferedImage img;
     transient String name = "Unknown";
     
     public void onCreation(Object o) {
-        ap =(AgletProxy)o;
+        ap = (AgletProxy)o;
+        timeCreate = getTime();
         sendSystemInfo();
+        addMobilityListener(new MobilityAdapter(){
+            @Override
+            public void onArrival(MobilityEvent me) {
+                sendSystemInfo();
+            }
+        });
     }
     
     public void run() {
@@ -57,7 +73,8 @@ public class AgentSlave extends Aglet implements Serializable{
             ip = myIP.getHostAddress();
             int port = getAgletContext().getHostingURL().getPort();
             AgletProxy agletProxy = getAgletContext().getAgletProxy(getAgletID());
-            Agent agent = new Agent(getAgletID(), agletProxy, " ",  " ", getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
+             System.out.println("port ="+port);
+            Agent agent = new Agent(getAgletID(), agletProxy, agentName,  timeCreate , getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
             ap.sendMessage(new Message("systemInfo", agent));
          } catch (Exception ex) {
          }
@@ -83,9 +100,14 @@ public class AgentSlave extends Aglet implements Serializable{
               Dimension screenSize = toolkit.getScreenSize();
               Rectangle screenRect = new Rectangle(screenSize);
               Robot  robot = new Robot();
-              img = robot.createScreenCapture(screenRect);
-              ap.sendMessage(new Message("capture", img));
-         } catch (Exception ex) {           
+              BufferedImage img = robot.createScreenCapture(screenRect);
+              ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+              ImageIO.write(img, "png", outputStream);
+//              System.out.println("byte arr"+byteImage);
+              byte[] byteImage = outputStream.toByteArray();
+              ap.sendMessage(new Message("capture", byteImage));
+         } catch (Exception ex) {  
+             System.out.println(ex);
          }
     }
     
@@ -100,14 +122,9 @@ public class AgentSlave extends Aglet implements Serializable{
             } 
     }
     
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-            ImageIO.write(img, "jpg", out); // png is lossless
+    public String getTime(){
+             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+             Date date = new Date();
+             return dateFormat.format(date);
     }
-
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        img = ImageIO.read(in);
-    }
-    
 }

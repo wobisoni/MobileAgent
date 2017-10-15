@@ -2,8 +2,11 @@ package mobileagent;
 
 import com.ibm.aglet.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +32,17 @@ public class AgentServer extends Aglet implements Serializable{
              serverWindow.setSystemInfo(agent);
         }else if(msg.sameKind("capture")){
             try {
-                File  file = new File("F:\\picture\\"+System.nanoTime()+".jpg");
-                BufferedImage bi = (BufferedImage)msg.getArg();
-                ImageIO.write(bi, "jpg", file);
+                File  file = new File("F:\\TestPic\\"+System.nanoTime()+".jpg");
+                byte[] byteImage = (byte[]) msg.getArg();
+                System.out.println("bi "+byteImage);
+                InputStream inputStream = new ByteArrayInputStream(byteImage);
+                BufferedImage bi = ImageIO.read(inputStream);
+                ImageDemo id = new ImageDemo(bi);
+                id.setVisible(true);
+                ImageIO.write(bi, "png", file);
             } catch (IOException ex) {
-                System.out.println("Khong tao duoc file anh");
-            }
+                Logger.getLogger(AgentServer.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         } else{
            return false;
          }

@@ -173,7 +173,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnCapture1.setBackground(new java.awt.Color(255, 255, 255));
         btnCapture1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCapture1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\camera.png")); // NOI18N
+        btnCapture1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\move.png")); // NOI18N
         btnCapture1.setText("Move");
         btnCapture1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCapture1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -189,7 +189,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnCapture2.setBackground(new java.awt.Color(255, 255, 255));
         btnCapture2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCapture2.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\camera.png")); // NOI18N
+        btnCapture2.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\update.png")); // NOI18N
         btnCapture2.setText("Update");
         btnCapture2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCapture2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -452,7 +452,6 @@ public class ServerWindows extends javax.swing.JFrame {
         btnRemove.setMaximumSize(new java.awt.Dimension(133, 59));
         btnRemove.setMinimumSize(new java.awt.Dimension(133, 59));
         btnRemove.setName("btnRemove"); // NOI18N
-        btnRemove.setPreferredSize(new java.awt.Dimension(135, 59));
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -469,7 +468,6 @@ public class ServerWindows extends javax.swing.JFrame {
         btnReDesktop.setMaximumSize(new java.awt.Dimension(133, 59));
         btnReDesktop.setMinimumSize(new java.awt.Dimension(133, 59));
         btnReDesktop.setName("btnReDesktop"); // NOI18N
-        btnReDesktop.setPreferredSize(new java.awt.Dimension(135, 59));
         btnReDesktop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReDesktopActionPerformed(evt);
@@ -486,7 +484,6 @@ public class ServerWindows extends javax.swing.JFrame {
         btnCapture.setMaximumSize(new java.awt.Dimension(133, 59));
         btnCapture.setMinimumSize(new java.awt.Dimension(133, 59));
         btnCapture.setName("btnCapture"); // NOI18N
-        btnCapture.setPreferredSize(new java.awt.Dimension(135, 59));
         btnCapture.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCaptureActionPerformed(evt);
@@ -530,7 +527,7 @@ public class ServerWindows extends javax.swing.JFrame {
 
         btnSystem1.setBackground(new java.awt.Color(255, 255, 255));
         btnSystem1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnSystem1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\system-settings-icon.png")); // NOI18N
+        btnSystem1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\noti.png")); // NOI18N
         btnSystem1.setText("Notification");
         btnSystem1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSystem1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -776,13 +773,19 @@ public class ServerWindows extends javax.swing.JFrame {
     public void setSystemInfo(Agent agent){
             int index =-1;
             for (Agent Objagent : arAgent) {
-                    if(Objagent.getaId()==agent.getaId()){
+                    if(Objagent.getaId().toString().equals(agent.getaId().toString())){
+                        System.out.println("aid= "+agent.getaId());
                         index = arAgent.indexOf(Objagent);
                         Objagent.setsName(agent.getsName());
                         Objagent.setsIp(agent.getsIp());
                         Objagent.setsArch(agent.getsArch());
                         Objagent.setsOs(agent.getsOs());
                         Objagent.setsVersion(agent.getsVersion());
+//                        lbSName.setText(": "+agent.getsName());//" name");
+//                        lbSIP.setText(": "+agent.getsIp());// location");
+//                        lbSOS.setText(": "+agent.getsOs());//" window");
+//                        lbSArch.setText(": "+agent.getsArch());//" architecture");
+//                        lbSVersion.setText(": "+agent.getsVersion());//" version");
                         break;
                     }
              }
@@ -799,7 +802,7 @@ public class ServerWindows extends javax.swing.JFrame {
             lbSName.setText(": "+agent.getsName());//" name");
             lbSIP.setText(": "+agent.getsIp());// location");
             lbSOS.setText(": "+agent.getsOs());//" window");
-            lbSArch.setText(": "+agent.getsOs());//" architecture");
+            lbSArch.setText(": "+agent.getsArch());//" architecture");
             lbSVersion.setText(": "+agent.getsVersion());//" version");
   }
 }
