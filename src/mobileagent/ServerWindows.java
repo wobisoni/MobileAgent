@@ -51,8 +51,8 @@ public class ServerWindows extends javax.swing.JFrame {
         panel112 = new javax.swing.JPanel();
         spListHost = new javax.swing.JScrollPane();
         tbListHost = new javax.swing.JTable();
-        btnCapture1 = new javax.swing.JButton();
-        btnCapture2 = new javax.swing.JButton();
+        btnMove = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
         panel12 = new javax.swing.JPanel();
         panel121 = new javax.swing.JPanel();
         panel1211 = new javax.swing.JPanel();
@@ -99,7 +99,7 @@ public class ServerWindows extends javax.swing.JFrame {
         btnCapture = new javax.swing.JButton();
         btnChat = new javax.swing.JButton();
         btnSystem = new javax.swing.JButton();
-        btnSystem1 = new javax.swing.JButton();
+        btnNoti = new javax.swing.JButton();
         panel2 = new javax.swing.JPanel();
         lbbottom = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
@@ -171,35 +171,33 @@ public class ServerWindows extends javax.swing.JFrame {
         tbListHost.setName("tbListHost"); // NOI18N
         spListHost.setViewportView(tbListHost);
 
-        btnCapture1.setBackground(new java.awt.Color(255, 255, 255));
-        btnCapture1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCapture1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\move.png")); // NOI18N
-        btnCapture1.setText("Move");
-        btnCapture1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnCapture1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnCapture1.setMaximumSize(new java.awt.Dimension(133, 59));
-        btnCapture1.setMinimumSize(new java.awt.Dimension(133, 59));
-        btnCapture1.setName("btnCapture1"); // NOI18N
-        btnCapture1.setPreferredSize(new java.awt.Dimension(135, 59));
-        btnCapture1.addActionListener(new java.awt.event.ActionListener() {
+        btnMove.setBackground(new java.awt.Color(255, 255, 255));
+        btnMove.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnMove.setText("Move");
+        btnMove.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnMove.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnMove.setMaximumSize(new java.awt.Dimension(133, 59));
+        btnMove.setMinimumSize(new java.awt.Dimension(133, 59));
+        btnMove.setName("btnMove"); // NOI18N
+        btnMove.setPreferredSize(new java.awt.Dimension(135, 59));
+        btnMove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapture1ActionPerformed(evt);
+                btnMoveActionPerformed(evt);
             }
         });
 
-        btnCapture2.setBackground(new java.awt.Color(255, 255, 255));
-        btnCapture2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCapture2.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\update.png")); // NOI18N
-        btnCapture2.setText("Update");
-        btnCapture2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnCapture2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnCapture2.setMaximumSize(new java.awt.Dimension(133, 59));
-        btnCapture2.setMinimumSize(new java.awt.Dimension(133, 59));
-        btnCapture2.setName("btnCapture2"); // NOI18N
-        btnCapture2.setPreferredSize(new java.awt.Dimension(135, 59));
-        btnCapture2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnUpdate.setText("Update");
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnUpdate.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnUpdate.setMaximumSize(new java.awt.Dimension(133, 59));
+        btnUpdate.setMinimumSize(new java.awt.Dimension(133, 59));
+        btnUpdate.setName("btnUpdate"); // NOI18N
+        btnUpdate.setPreferredSize(new java.awt.Dimension(135, 59));
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCapture2ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -208,17 +206,17 @@ public class ServerWindows extends javax.swing.JFrame {
         panel112Layout.setHorizontalGroup(
             panel112Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(spListHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(btnCapture1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .add(btnCapture2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(btnMove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .add(btnUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         );
         panel112Layout.setVerticalGroup(
             panel112Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panel112Layout.createSequentialGroup()
                 .add(spListHost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 273, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(btnCapture1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(btnMove, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(btnCapture2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(btnUpdate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(0, 6, Short.MAX_VALUE))
         );
 
@@ -525,22 +523,21 @@ public class ServerWindows extends javax.swing.JFrame {
         });
         panel13.add(btnSystem);
 
-        btnSystem1.setBackground(new java.awt.Color(255, 255, 255));
-        btnSystem1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnSystem1.setIcon(new javax.swing.ImageIcon("C:\\aglets\\public\\mobileagent\\icon\\noti.png")); // NOI18N
-        btnSystem1.setText("Notification");
-        btnSystem1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnSystem1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnSystem1.setMaximumSize(new java.awt.Dimension(133, 59));
-        btnSystem1.setMinimumSize(new java.awt.Dimension(133, 59));
-        btnSystem1.setName("btnSystem1"); // NOI18N
-        btnSystem1.setPreferredSize(new java.awt.Dimension(135, 59));
-        btnSystem1.addActionListener(new java.awt.event.ActionListener() {
+        btnNoti.setBackground(new java.awt.Color(255, 255, 255));
+        btnNoti.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNoti.setText("Notification");
+        btnNoti.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNoti.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnNoti.setMaximumSize(new java.awt.Dimension(133, 59));
+        btnNoti.setMinimumSize(new java.awt.Dimension(133, 59));
+        btnNoti.setName("btnNoti"); // NOI18N
+        btnNoti.setPreferredSize(new java.awt.Dimension(135, 59));
+        btnNoti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSystem1ActionPerformed(evt);
+                btnNotiActionPerformed(evt);
             }
         });
-        panel13.add(btnSystem1);
+        panel13.add(btnNoti);
 
         panel1.add(panel13, java.awt.BorderLayout.PAGE_END);
 
@@ -593,23 +590,7 @@ public class ServerWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-                try {
-                         int index = tbListAgent.getSelectedRow(); 
-                         if(index!=-1){
-                             Agent agent = (Agent)mListAgent.getObject(index);   
-                            String host = showInputDialog("IP Address", "localhost");
-                            String aPort = showInputDialog("Port", "4434");
-                            if((host!=null)&&(aPort!=null)){
-                                 String remoteContext = "atp://"+host+":"+aPort;
-                                 URL url = new URL(remoteContext);
-                                 AgletProxy ap =  agent.getaProxy().dispatch(url);
-                                 arAgent.get(index).setaProxy(ap);
-                            }
-                         }else{
-                             JOptionPane.showMessageDialog(this, "Select one aglets!");
-                         }
-                } catch (Exception ex) {
-                }
+        
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnReDesktopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReDesktopActionPerformed
@@ -635,40 +616,56 @@ public class ServerWindows extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChatActionPerformed
 
     private void btnSystemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystemActionPerformed
-//        int index = tbListAgent.getSelectedRow(); 
-//            Agent agent = mListAgent.getObject(index);   
-//            AgletProxy ap = agent.getaProxy();
-//            String [] days = { "Shutdown", "Restart", "Logout"};   
-//            String input =  JOptionPane.showInputDialog (this,  "Choose an action",  " System ",  JOptionPane.QUESTION_MESSAGE,  null,  days, "").toString();
-//            try{
-//                switch(input){
-//                      case "Shutdown": 
-//                               ap.sendMessage(new Message("shutdown"));
-//                               System.out.println("tat may trong 30s");
-//                          break;
-//                      case "Restart": 
-//                                ap.sendMessage(new Message("restart"));
-//                          break;
-//                      case "Logout": 
-//                                 ap.sendMessage(new Message("Logout"));   
-//                          break;
-//                      default:
-//                          break;
-//                  }
-//            }catch(Exception ex){}
+        int index = tbListAgent.getSelectedRow(); 
+        Agent agent = mListAgent.getObject(index);   
+        AgletProxy ap = agent.getaProxy();
+        String [] days = { "Shutdown", "Restart", "Logout"};   
+        String input =  JOptionPane.showInputDialog (this,  "Choose an action",  " System ",  JOptionPane.QUESTION_MESSAGE,  null,  days, "").toString();
+        try{
+            switch(input){
+                  case "Shutdown": 
+                           ap.sendMessage(new Message("shutdown"));
+                           System.out.println("tat may trong 30s");
+                      break;
+                  case "Restart": 
+                            ap.sendMessage(new Message("restart"));
+                      break;
+                  case "Logout": 
+                             ap.sendMessage(new Message("Logout"));   
+                      break;
+                  default:
+                      break;
+              }
+        }catch(Exception ex){}
     }//GEN-LAST:event_btnSystemActionPerformed
 
-    private void btnCapture1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapture1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCapture1ActionPerformed
+    private void btnMoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveActionPerformed
+        try {
+            int index = tbListAgent.getSelectedRow(); 
+            if(index!=-1){
+                Agent agent = (Agent)mListAgent.getObject(index);   
+               String host = showInputDialog("IP Address", "localhost");
+               String aPort = showInputDialog("Port", "4434");
+               if((host!=null)&&(aPort!=null)){
+                    String remoteContext = "atp://"+host+":"+aPort;
+                    URL url = new URL(remoteContext);
+                    AgletProxy ap =  agent.getaProxy().dispatch(url);
+                    arAgent.get(index).setaProxy(ap);
+               }
+            }else{
+                JOptionPane.showMessageDialog(this, "Select one aglets!");
+            }
+        } catch (Exception ex) {
+        }
+    }//GEN-LAST:event_btnMoveActionPerformed
 
-    private void btnCapture2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapture2ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCapture2ActionPerformed
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnSystem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSystem1ActionPerformed
+    private void btnNotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSystem1ActionPerformed
+    }//GEN-LAST:event_btnNotiActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -687,13 +684,13 @@ public class ServerWindows extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCapture;
-    private javax.swing.JButton btnCapture1;
-    private javax.swing.JButton btnCapture2;
     private javax.swing.JButton btnChat;
+    private javax.swing.JButton btnMove;
+    private javax.swing.JButton btnNoti;
     private javax.swing.JButton btnReDesktop;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSystem;
-    private javax.swing.JButton btnSystem1;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lb1;
     private javax.swing.JLabel lb10;
     private javax.swing.JLabel lb11;

@@ -1,11 +1,6 @@
 package mobileagent;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,7 +8,7 @@ import javax.swing.JLabel;
 public class ImageDemo extends JFrame {
 
     public ImageDemo(BufferedImage bi) {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(700, 450);//chieu rong va chieu cao cua frame
         setVisible(true);
         setLocation(500, 300);
@@ -44,8 +39,4 @@ public class ImageDemo extends JFrame {
         label.setIcon(icon);
 
     }
-
-//    public static void main(String[] args) {
-//        ImageDemo a1 = new ImageDemo();
-//    }
 }
