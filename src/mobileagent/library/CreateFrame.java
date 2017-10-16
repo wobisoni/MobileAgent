@@ -55,16 +55,17 @@ public class CreateFrame extends Thread {
             ex.printStackTrace();
         }
         
-//        frame.addWindowListener(new WindowAdapter() {
-//            @Override
-//            public void windowClosing(WindowEvent e) {
-//                try {
-//                    remoteProxy.sendMessage(new Message("dispose", null));
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        });
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    remoteProxy.sendOnewayMessage(new Message("dispose", null));
+                    socket.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
         //This allows to handle KeyListener events
         panel.setFocusable(true);
         interFrame.setVisible(true);

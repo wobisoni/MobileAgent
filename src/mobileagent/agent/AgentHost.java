@@ -15,7 +15,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import mobileagent.library.CreateFrame;
 
 public class AgentHost extends Aglet implements Serializable{
@@ -35,7 +34,7 @@ public class AgentHost extends Aglet implements Serializable{
         if (msg.sameKind("systemInfo")) {
             System.out.println("Receive message from slave");
             Agent agent = (Agent)msg.getArg();
-             serverWindow.setSystemInfo(agent);
+            serverWindow.setSystemInfo(agent);
         }else if(msg.sameKind("capture")){
             try {
                 File  file = new File("F:\\TestPic\\"+System.nanoTime()+".jpg");
@@ -55,7 +54,6 @@ public class AgentHost extends Aglet implements Serializable{
                 String height = "";
                 AgletProxy remoteProxy = (AgletProxy)msg.getArg();
                 String ip = remoteProxy.getAddress();
-//                System.out.println(ip);
                 Socket socket = new Socket("localhost",4000);
                 System.out.println("Connecting to the Server");
 		DataInputStream	dis = new DataInputStream(socket.getInputStream());

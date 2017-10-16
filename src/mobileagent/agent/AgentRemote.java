@@ -4,6 +4,7 @@ import com.ibm.aglet.*;
 import com.ibm.aglet.event.*;
 import java.awt.*;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.*;
 import mobileagent.library.ReceiveEvents;
 import mobileagent.library.SendScreen;
@@ -12,7 +13,7 @@ public class AgentRemote extends Aglet{
     AgletProxy ap;
     Rectangle rectangle = null;
     Robot robot = null;
-
+    ServerSocket ssocket=null;
     String width="";
     String height="";
     
@@ -22,12 +23,13 @@ public class AgentRemote extends Aglet{
         addMobilityListener(new MobilityAdapter(){
             @Override
             public void onArrival(MobilityEvent me) {
-//                try {
-//                    ap.sendMessage(new Message("remote", getProxy()));
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                } 
-                remote();
+                try {
+                    remote();
+                    ap.sendMessage(new Message("remote", getProxy()));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } 
+                
             }
         });
     }
@@ -35,6 +37,12 @@ public class AgentRemote extends Aglet{
     @Override
     public boolean handleMessage(Message msg) {
         if(msg.sameKind("dispose")){
+            try {
+                System.out.println("tat server");
+                ssocket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             dispose();
         }else{
             return false;
@@ -55,7 +63,7 @@ public class AgentRemote extends Aglet{
             height=""+dim.getHeight();
             rectangle = new Rectangle(dim);
             robot=new Robot(gDev);
-            ServerSocket ssocket = new ServerSocket(port);
+            ssocket = new ServerSocket(port);
             ap.sendOnewayMessage(new Message("remote", getProxy()));
             System.out.println("Awaiting Connection from Client:");
             

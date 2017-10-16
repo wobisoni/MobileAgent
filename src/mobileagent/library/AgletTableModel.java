@@ -1,18 +1,34 @@
 package mobileagent.library;
 
 import mobileagent.bean.Agent;
-import mobileagent.bean.Agent;
 import com.ibm.aglet.InvalidAgletException;
+import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-public class MyTableModel extends AbstractTableModel{
+public class AgletTableModel extends AbstractTableModel{
     String[] header;
     ArrayList<Agent>  arAgent;
+    JTable table;
 
-    public MyTableModel(ArrayList<Agent> arAgent) {
-         this.header = new String [] { "ID","Name", "Status", "Location", " IP Address", "Create time" };
+    public AgletTableModel(JTable table, ArrayList<Agent> arAgent) {
+         this.header = new String [] { "ID","Name"," IP Address", "Create time" };
          this.arAgent = arAgent;
+         this.table = table;
+    }
+    
+    public void loadTable() {
+        this.table.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 11));
+        this.table.setRowHeight(18);
+        ((JComponent)this.table.getDefaultRenderer(Boolean.class)).setOpaque(true);
+        this.table.setModel(this);
+        
+        this.table.getColumnModel().getColumn(0).setPreferredWidth(300);
+        this.table.getColumnModel().getColumn(1).setPreferredWidth(300);
+        this.table.getColumnModel().getColumn(2).setPreferredWidth(300);
+        this.table.getColumnModel().getColumn(3).setPreferredWidth(300);
     }
     
     public int getRowCount() {
@@ -28,22 +44,18 @@ public class MyTableModel extends AbstractTableModel{
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-         Object object = null;
-         switch(columnIndex){
-                   case 0:
-                       return arAgent.get(rowIndex).getaId();
-                   case 1:
-                       return arAgent.get(rowIndex).getaName();
-                   case 2:
-                       return arAgent.get(rowIndex).getaStatus();
-                   case 3:
-                       return arAgent.get(rowIndex).getsName();
-                   case 4:
-                       return arAgent.get(rowIndex).getsIp();
-                   case 5:
-                       return arAgent.get(rowIndex).getaTime();
-         }
-         return object;
+        Object object = null;
+        switch(columnIndex){
+            case 0:
+                return arAgent.get(rowIndex).getaId();
+            case 1:
+                return arAgent.get(rowIndex).getaName();
+            case 2:
+                return arAgent.get(rowIndex).getsIp();
+            case 3:
+                return arAgent.get(rowIndex).getaTime();
+        }
+        return object;
     }
     
     public Agent getObject(int index){

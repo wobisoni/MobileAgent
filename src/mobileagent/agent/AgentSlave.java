@@ -9,32 +9,21 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 public class AgentSlave extends Aglet implements Serializable{
-    String agentName = "";
-    String timeCreate = "";
     AgletProxy ap = null;
     transient String name = "Unknown";
     
     public void onCreation(Object o) {
         ap = (AgletProxy)o;
-        timeCreate = getTime();
-        sendSystemInfo();
         addMobilityListener(new MobilityAdapter(){
             @Override
             public void onArrival(MobilityEvent me) {
@@ -49,7 +38,6 @@ public class AgentSlave extends Aglet implements Serializable{
 
     public boolean handleMessage(Message msg) {
         if (msg.sameKind("remote")){
-            remote();
         } else if(msg.sameKind("shutdown")){
             shutdown();
         } else if(msg.sameKind("restart")){
@@ -66,16 +54,6 @@ public class AgentSlave extends Aglet implements Serializable{
         return true;
     }
     
-    public void remote(){
-        try {
-            Socket soc = new Socket(ap.getAddress(), 4434);
-        } catch (InvalidAgletException ex) {
-            Logger.getLogger(AgentSlave.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AgentSlave.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     public void sendSystemInfo(){
          try {
             name = System.getProperty("user.name");
@@ -87,9 +65,9 @@ public class AgentSlave extends Aglet implements Serializable{
             ip = myIP.getHostAddress();
             int port = getAgletContext().getHostingURL().getPort();
             AgletProxy agletProxy = getAgletContext().getAgletProxy(getAgletID());
-             System.out.println("port ="+port);
-            Agent agent = new Agent(getAgletID(), agletProxy, agentName,  timeCreate , getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
-            ap.sendMessage(new Message("systemInfo", agent));
+            System.out.println("port ="+port);
+            Agent agent = new Agent(getAgletID(), agletProxy, "",  "" , getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
+            ap.sendOnewayMessage(new Message("systemInfo", agent));
          } catch (Exception ex) {
          }
     }
