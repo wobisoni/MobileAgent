@@ -5,22 +5,28 @@ import com.ibm.aglet.AgletProxy;
 import com.ibm.aglet.Message;
 import com.ibm.aglet.event.MobilityAdapter;
 import com.ibm.aglet.event.MobilityEvent;
-import java.net.InetAddress;
-import mobileagent.bean.Agent;
 
 public class AgentCheckPlatform extends Aglet{
+    AgletProxy ap;
+    String ip;
+    String name;
+    
     @Override
     public void onCreation(Object o) {
+        Object obj[] = (Object[])o;
+        ap = (AgletProxy)obj[0];
+        ip = (String)obj[1];
+        name = (String)obj[2];
+        sendSystemInfo();
+        dispose();
         addMobilityListener(new MobilityAdapter(){
-            @Override
             public void onArrival(MobilityEvent me) {
-                System.out.println("Hello");
+                sendSystemInfo();
                 dispose();
             }
         });
     }
 
-    @Override
     public void run() {
         try {
             Thread.sleep(5000);
@@ -30,18 +36,24 @@ public class AgentCheckPlatform extends Aglet{
         }
     }
     
-//    public void sendSystemInfo(){
-//        try {
-//           String name = System.getProperty("user.name");
-//           String os = System.getProperty("os.name");
-//           String architecture = System.getProperty("os.arch");
-//           String version = System.getProperty("os.version");
-//   
-//           AgletProxy agletProxy = getAgletContext().getAgletProxy(getAgletID());
-//           System.out.println("port ="+port);
-//           Agent agent = new Agent(getAgletID(), agletProxy, "",  "" , getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
-//           ap.sendOnewayMessage(new Message("systemInfo", agent));
-//        } catch (Exception ex) {
-//        }
-//    }
+    public void sendSystemInfo(){
+        try {
+            String os = System.getProperty("os.name");
+            if(os.toLowerCase().contains("window")){
+                os = "Windows";
+            }else if(os.toLowerCase().contains("linux")){
+                os = "Linux";
+            }else if(os.toLowerCase().contains("mac")){
+                os = "Mac";
+            }
+            String architecture = System.getProperty("os.arch");
+            String version = System.getProperty("os.version");
+            String response = ip+"' '"+name+"' '"+os+"' '"+architecture+"' '"+version;
+            Message msg = new Message("systemInfo", response);
+            System.out.println("agen: "+msg);
+            ap.sendOnewayMessage(msg);
+            dispose();
+        } catch (Exception ex) {
+        }
+    }
 }

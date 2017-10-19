@@ -1,4 +1,4 @@
-package mobileagent.library;
+package mobileagent.render;
 
 
 import com.ibm.aglet.InvalidAgletException;
@@ -65,6 +65,7 @@ public class IpTableModel extends AbstractTableModel{
     public void addRow(Host ipA){
         arIp.add(ipA);
         fireTableDataChanged();
+        table.scrollRectToVisible(table.getCellRect(this.getRowCount()-1, 0, true));
     }
     
     public void updateRow(int index, Host ipA){

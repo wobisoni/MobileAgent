@@ -1,6 +1,8 @@
 package mobileagent.bean;
 
-public class Host {
+import java.io.Serializable;
+
+public class Host implements Serializable{
     private String ip;
     private String name;
     private String os;
@@ -66,5 +68,9 @@ public class Host {
 
     public void setPlatform(int platform) {
         this.platform = platform;
+    }
+
+    public Object getaProxy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

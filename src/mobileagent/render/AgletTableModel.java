@@ -1,4 +1,4 @@
-package mobileagent.library;
+package mobileagent.render;
 
 import mobileagent.bean.Agent;
 import com.ibm.aglet.InvalidAgletException;
@@ -51,7 +51,7 @@ public class AgletTableModel extends AbstractTableModel{
             case 1:
                 return arAgent.get(rowIndex).getaName();
             case 2:
-                return arAgent.get(rowIndex).getsIp();
+                return arAgent.get(rowIndex).getaIp();
             case 3:
                 return arAgent.get(rowIndex).getaTime();
         }
@@ -65,6 +65,7 @@ public class AgletTableModel extends AbstractTableModel{
     public void addRow(Agent agent){
          arAgent.add(agent);
          fireTableDataChanged();
+         table.scrollRectToVisible(table.getCellRect(this.getRowCount()-1, 0, true));
     }
     
     public void updateRow(int index, Agent agent){
@@ -80,12 +81,10 @@ public class AgletTableModel extends AbstractTableModel{
     public void updateInfo(Agent agent) {
         for (int i = 0; i < arAgent.size(); i++){
             if(((Agent)arAgent.get(i)).getaId().equals(agent.getaId())){
-                  Agent ag = (Agent)arAgent.get(i);
-                 ag.setsIp(agent.getsIp());
-                 ag.setsArch(agent.getsArch());
-                 ag.setsName(agent.getsName());
-                 ag.setsOs(agent.getsOs());
-                 ag.setsVersion(agent.getsVersion());
+                Agent ag = (Agent)arAgent.get(i);
+                ag.setaIp(agent.getaIp());
+                ag.setaProxy(agent.getaProxy());
+                ag.setaStatus(agent.getaStatus());
             }
         }
         fireTableDataChanged();

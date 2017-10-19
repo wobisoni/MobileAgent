@@ -66,7 +66,7 @@ public class AgentSlave extends Aglet implements Serializable{
             int port = getAgletContext().getHostingURL().getPort();
             AgletProxy agletProxy = getAgletContext().getAgletProxy(getAgletID());
             System.out.println("port ="+port);
-            Agent agent = new Agent(getAgletID(), agletProxy, "",  "" , getProxy().isActive()? "Active":"Inactive", name, ip+":"+port, os, architecture, version);
+            Agent agent = new Agent(getAgletID(), agletProxy, "" , getProxy().isActive()? "Active":"Inactive", name, ip);
             ap.sendOnewayMessage(new Message("systemInfo", agent));
          } catch (Exception ex) {
          }

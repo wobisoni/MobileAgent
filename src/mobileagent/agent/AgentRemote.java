@@ -11,21 +11,28 @@ import mobileagent.library.SendScreen;
 
 public class AgentRemote extends Aglet{
     AgletProxy ap;
-    Rectangle rectangle = null;
+    String ip;
+    Rectangle rectangle;
     Robot robot = null;
-    ServerSocket ssocket=null;
-    String width="";
-    String height="";
+    ServerSocket ssocket;
+    int defaultPort = 4000;
+    boolean loop;
+    String width;
+    String height;
     
     @Override
     public void onCreation(Object o) {
-        ap = (AgletProxy)o;
+        Object obj[] = (Object[])o;
+        ap = (AgletProxy)obj[0];
+        ip = (String)obj[1];
         addMobilityListener(new MobilityAdapter(){
             @Override
             public void onArrival(MobilityEvent me) {
                 try {
+                    loop = true;
+                    ssocket = new ServerSocket(defaultPort);
+                    ap.sendOnewayMessage(new Message("remote", ip));
                     remote();
-                    ap.sendMessage(new Message("remote", getProxy()));
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 } 
@@ -37,12 +44,7 @@ public class AgentRemote extends Aglet{
     @Override
     public boolean handleMessage(Message msg) {
         if(msg.sameKind("dispose")){
-            try {
-                System.out.println("tat server");
-                ssocket.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            System.out.println("Huy tac tu remote!");
             dispose();
         }else{
             return false;
@@ -53,21 +55,18 @@ public class AgentRemote extends Aglet{
     public void remote() {
         Robot robot = null;
         Rectangle rectangle = null;
-        int port = 4000;
         try{
             GraphicsEnvironment gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             GraphicsDevice gDev = gEnv.getDefaultScreenDevice();
-
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             width=""+dim.getWidth();
             height=""+dim.getHeight();
             rectangle = new Rectangle(dim);
             robot=new Robot(gDev);
-            ssocket = new ServerSocket(port);
-            ap.sendOnewayMessage(new Message("remote", getProxy()));
-            System.out.println("Awaiting Connection from Client:");
             
-            while(true){
+            System.out.println("Awaiting Connection from AgletHost:");
+            
+            while(loop){
                 System.out.print(".");
                 Socket socket = ssocket.accept();
                 DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
@@ -78,7 +77,14 @@ public class AgentRemote extends Aglet{
                 new ReceiveEvents(socket,robot);
             }
         }catch (Exception ex){
-                ex.printStackTrace();
+            loop = false;
+            System.out.println("Aglet da dung lai");
+            try {
+                ssocket.close();
+            } catch (IOException ex1) {
+                ex1.printStackTrace();
+            }
+            dispose();
         }
     }
 }

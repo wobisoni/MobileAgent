@@ -40,8 +40,8 @@ public class ReceiveEvents extends Thread{
                         break;
                 }
             }
-        }catch(IOException ex){
-            ex.printStackTrace();
+        }catch(Exception ex){
+            continueLoop = false;
         }
     }
 

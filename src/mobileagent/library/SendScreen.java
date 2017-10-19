@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 
@@ -37,7 +39,12 @@ public class SendScreen extends Thread{
                 ImageIO.write(bi,"jpeg",os);
                 Thread.sleep(10);
             }catch(Exception ex){
-                ex.printStackTrace();
+                continueLoop = false;
+                try {
+                    socket.close();
+                } catch (IOException ex1) {
+                    ex1.printStackTrace();
+                }
             }
         }
     }

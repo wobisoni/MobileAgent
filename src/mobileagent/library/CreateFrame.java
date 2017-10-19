@@ -1,13 +1,9 @@
 package mobileagent.library;
 
-import com.ibm.aglet.Aglet;
 import com.ibm.aglet.AgletProxy;
-import com.ibm.aglet.InvalidAgletException;
 import com.ibm.aglet.Message;
-import com.ibm.aglet.MessageException;
-import com.ibm.aglet.NotHandledException;
 import java.awt.BorderLayout;
-import java.awt.Window;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
@@ -18,8 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CreateFrame extends Thread {
     String width="", height="";
@@ -42,6 +36,7 @@ public class CreateFrame extends Thread {
         frame.add(desktop, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH);		//CHECK THIS LINE
+        frame.setMinimumSize(new Dimension(700, 300));
         frame.setVisible(true);
         interFrame.setLayout(new BorderLayout());
         interFrame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -55,20 +50,21 @@ public class CreateFrame extends Thread {
             ex.printStackTrace();
         }
         
+        //This allows to handle KeyListener events
+        panel.setFocusable(true);
+        interFrame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
-                    remoteProxy.sendOnewayMessage(new Message("dispose", null));
                     socket.close();
+//                    remoteProxy.sendOnewayMessage(new Message("dispose", null));
+                    System.out.println("tat cua so teamviw");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
-        //This allows to handle KeyListener events
-        panel.setFocusable(true);
-        interFrame.setVisible(true);
     }
 
     public void run() { 
